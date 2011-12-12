@@ -6,7 +6,7 @@ they get: the Rocket Jumper and the I-Rocket Jumper. They're both completely
 invulnerable (PowerInvulnerable, not PowerProtection, so horizontal thrust still
 works), and even if they weren't, they heal back up to 250 HP instantly whenever
 they take damage. Only a BFG ball, Doomsphere'd rocket/grenade/rail, or instant
-death sector can kill them.
+death sector could kill them.
 
 Here are the main tools of the rocket jumping trade:
 
@@ -46,6 +46,9 @@ rocket jumping (ie. makes RJumpExtreme less annoying). They are:
     Deadly accurate, and depending on how charged it is, extremely
     overpowered. It explodes, but you can't use it to rocket jump. Don't
     bother.
+
+For you people who like the Marine but are playing on a server with RJPack,
+that's still there. Just scroll to the end of the class list.
 
 And right now, that's it. More will come as I get ideas (suggestions welcome).
 

@@ -4,6 +4,7 @@ actor "Super~Railgun": RJWeapon
     
     Weapon.AmmoType "SuperRailCounter"
     
+    +NOAUTOAIM
     Weapon.SlotNumber 6
 
     Inventory.Pickupmessage "You picked up a super railgun!"

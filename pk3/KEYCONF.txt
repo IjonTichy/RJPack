@@ -1,3 +1,4 @@
 clearplayerclasses
 addplayerclass NormalRocketJumper
 addplayerclass InstantRocketJumper
+addplayerclass DoomPlayer
