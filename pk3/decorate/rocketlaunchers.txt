@@ -1,0 +1,154 @@
+actor "Rocket~Launcher": RJWeapon
+{
+    Weapon.SelectionOrder 1
+    Weapon.SlotNumber 3
+
+    Inventory.PickupMessage "An enigma, wrapped in a mystery. However does this work?"
+
+    States
+    {
+      Ready:
+        MISG A 1 A_WeaponReady
+        Loop
+      Deselect:
+        MISG A 1 A_Lower
+        Loop
+      Select:
+        MISG A 1 A_Raise
+        Loop
+      Fire:
+        RJRL A 2
+        RJRL A 4 A_GunFlash
+        RJRL B 2
+        RJRL D 3 A_FireCustomMissile("RocketJumperRocket")
+        RJRL C 3
+        RJRL BE 2
+        RJRL FG 1
+        RJRL A 0 A_ReFire
+        Goto Ready
+      AltFire:
+        RJRL A 2
+        RJRL A 4 A_GunFlash
+        RJRL B 2
+        RJRL D 3 A_FireCustomMissile("RocketJumperGrenade")
+        RJRL C 3
+        RJRL BE 2
+        RJRL FG 1
+        RJRL A 0 A_ReFire
+        Goto Ready
+      Flash:
+        RJRF A 3 Bright A_Light1
+        RJRF B 2 Bright
+        RJRF C 2 Bright A_Light2
+        RJRF DE 3 Bright
+        Goto LightDone
+      Spawn:
+        LAUN A -1
+        Stop
+    }
+}
+
+actor "Instant-Rocket~Launcher": RJWeapon
+{
+    Weapon.SelectionOrder 1
+    Weapon.SlotNumber 3
+
+    Inventory.PickupMessage "The fact that it fires instantly does little to unshroud the mystery."
+
+    States
+    {
+      Ready:
+        MISG A 1 A_WeaponReady
+        Loop
+      Deselect:
+        MISG A 1 A_Lower
+        Loop
+      Select:
+        MISG A 1 A_Raise
+        Loop
+      Fire:
+        RJRL B 0 A_FireCustomMissile("RocketJumperRocket")
+        RJRL A 1 A_GunFlash
+        RJRL B 1
+        RJRL C 2
+        RJRL D 10
+        RJRL BE 2
+        RJRL FG 1
+        RJRL A 0 A_ReFire
+        Goto Ready
+      AltFire:
+        RJRL B 0 A_FireCustomMissile("RocketJumperGrenade")
+        RJRL A 1 A_GunFlash
+        RJRL B 1
+        RJRL C 2
+        RJRL D 10
+        RJRL BE 2
+        RJRL FG 1
+        RJRL A 0 A_ReFire
+        Goto Ready
+      Flash:
+        RJRF A 1 Bright A_Light1
+        RJRF B 1 Bright
+        RJRF C 2 Bright A_Light2
+        RJRF DE 3 Bright
+        Goto LightDone
+      Spawn:
+        LAUN A -1
+        Stop
+    }
+}
+
+
+ACTOR RocketJumperRocket
+{
+    Radius 11
+    Height 8
+    Speed 20
+    Damage 0
+    Projectile
+    +RANDOMIZE
+    +DEHEXPLOSION
+    +ROCKETTRAIL
+    Projectile
+    Obituary "%o stood in %k's path."
+    SeeSound   "rocketjumper/rocketfire"
+    DeathSound "rocketjumper/rocketexplosion"
+    DamageType RocketJumper
+    States
+    {
+      Spawn:
+        RJMS A -1 bright
+        stop
+
+      Death:
+        RJMS B 0 bright A_Explode(ACS_ExecuteWithResult(696), ACS_ExecuteWithResult(696))
+        RJMS B 8 bright
+        RJMS C 6 bright
+        RJMS D 4 bright
+        stop
+    }
+}
+
+ACTOR RocketJumperGrenade: Grenade
+{
+    +DEHEXPLOSION
+    Obituary "%o walked on %k's propulsion."
+    DamageType RocketJumper
+    SeeSound "rocketjumper/rocketfire"
+    DeathSound "rocketjumper/rocketexplosion"
+    Decal "none"
+    States
+    {
+      Spawn:
+        RJGN A 87 bright
+        RJGN A 0 A_Stop
+        RJGN A 0 A_PlayerScream
+      Death:
+        RJMS B 0 Bright A_ChangeFlag("NoGravity", 1)
+        RJMS B 0 bright A_Explode(ACS_ExecuteWithResult(696), ACS_ExecuteWithResult(696))
+        RJMS B 8 bright
+        RJMS C 6 bright
+        RJMS D 4 bright
+        stop
+    }
+}

@@ -1,0 +1,19 @@
+#define RJPACK_BASE             692
+
+
+#define RJPACK_SPAWN_COMMON     RJPACK_BASE - 101
+
+#define RJPACK_OPEN             RJPACK_BASE - 1
+#define RJPACK_ENTER            RJPACK_BASE - 2
+#define RJPACK_RESPAWN          RJPACK_BASE - 3
+#define RJPACK_DEATH            RJPACK_BASE - 4
+#define RJPACK_DISCONNECT       RJPACK_BASE - 5
+
+
+#define RJPACK_SETSPAWN         RJPACK_BASE + 1
+#define RJPACK_CHECKAMMO        RJPACK_BASE + 2
+#define RJPACK_JOIN             RJPACK_BASE + 3
+#define RJPACK_GETPOWER         RJPACK_BASE + 4
+#define RJPACK_PROJ_CHECKAMMO   RJPACK_BASE + 5
+#define RJPACK_GOTOSPAWN        RJPACK_BASE + 6
+#define RJPACK_TOGGLEPICKUP     RJPACK_BASE + 7

@@ -1,0 +1,31 @@
+actor DontSpawn
+{
+    +NOINTERACTION
+    +CLIENTSIDEONLY
+    States
+    {
+      Spawn:
+        TNT1 A 0
+        stop
+    }
+}
+
+actor NoSoulSphere:   DontSpawn replaces SoulSphere {}
+
+actor NoBlurSphere:   DontSpawn replaces BlurSphere {}
+
+actor NoMegaSphere:   DontSpawn replaces MegaSphere {}
+
+actor NoInvulnSphere: DontSpawn replaces InvulnerabilitySphere {}
+
+actor NoDoomSphere:   DontSpawn replaces DoomSphere {}
+
+actor NoGuardSphere:  DontSpawn replaces GuardSphere {}
+
+actor NoInvisiSphere: DontSpawn replaces InvisibilitySphere {}
+
+actor NoTurboSphere:  DontSpawn replaces TurboSphere {}
+
+actor NoTimeSphere:   DontSpawn replaces TimeFreezeSphere {}
+
+actor NoRandomSphere: DontSpawn replaces RandomPowerup {}

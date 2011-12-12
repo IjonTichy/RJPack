@@ -1,0 +1,36 @@
+v1.1:
+
+* Fixed not getting the Spawn Setter when moving
+
+v1.2:
+
++ Found out PowerInvulnerable lets you rocket jump normally, so I gave a version
+  of that to the Rocket Jumper that lasts forever - ie. no damage flash :D
+
+/                                         \
+| BIG PERIOD OF NO CHANGELOG FUCKING HELL |
+\                                         /
+
+v4:
+* Seperated Instant Rocket Launcher into I-Rocket Jumper
+* No longer are you vulnerable again on map change
+* Super Railgun no longer usable for rocket jumping
+* Moved around slot numbers (Spawn-Setter 1, Rocket Launchers 3, offense weapons
+  6)
+* Added +UNDROPPABLE to all weapons (actually, made them inherit from RJWeapon,
+  which has +UNDROPPABLE, but shut up)
+
+v4.1:
++ Added Spawn Item (the blursphere)
++ Added Pickup Toggler (the prosperity)
++ Added Smart Switch Toggler (the smaller blursphere)
+* Spawn Setter changed to two items (the invuln spheres - small one unsets)
+* No longer do you become vulnerable on death (apparently having invincibility
+  on death neuters the effect)
+* Now your rocket launcher is the weapon that's out when you join
+* First Super Chaingun bullet is perfectly accurate with primary fire
+* Super Chaingun bullets now do random(40, 60) base damage
+* Spawn Setter now records pitch
+* Smart toggling between the Spawn Item and Spawn Setter - when you leave
+  ground, you switch to Spawn Item, and when you land, you switch to Spawn
+  Setter - this can be toggled by the Smart Switch Toggler

@@ -1,0 +1,65 @@
+actor "Super~Chaingun": RJWeapon
+{
+    Weapon.SelectionOrder 10000
+    
+    Weapon.SlotNumber 6
+
+    Inventory.PickupMessage "You picked up a super chaingun!"
+    Obituary "%k tore %o to shreds."
+
+    States
+    {
+      Select:
+        PKCG A 1 A_Raise
+        Loop
+
+      Deselect:
+        PKCG A 1 A_Lower
+        Loop
+
+      Ready:
+        PKCG A 1 A_WeaponReady
+        Loop
+
+      Fire:
+        PKCG A 0 A_PlaySound("rjpack/superchaingun/fire", CHAN_WEAPON)
+        PKCG A 0 A_GunFlash
+        PKCG A 0 A_Recoil(0.3)
+        PKCG A 1 bright A_FireBullets(1, 1, 0, random(40,60), "BulletPuff")
+        PKCG BD 1 bright
+        PKCG A 1 A_Refire
+        PKCG B 2 A_Weaponready
+        PKCG C 3 A_Weaponready
+        PKCG D 4 A_Weaponready
+        Goto Ready
+
+      AltFire:
+        PKCG A 0 A_PlaySound("rjpack/superchaingun/fire", CHAN_WEAPON)
+        PKCG A 0 A_GunFlash
+        PKCG A 0 A_Recoil(0.3)
+        PKCG A 1 bright A_FireBullets(6, 6, -1, random(40,60), "BulletPuff")
+        PKCG C 1 bright
+        PKCG A 1 A_Refire
+        PKCG B 2 A_Weaponready
+        PKCG C 3 A_Weaponready
+        PKCG D 4 A_Weaponready
+        Goto Ready
+
+
+      Flash:
+        TNT1 A 0 A_Jump(128,4)
+        PKCF A 1 bright A_Light2
+        PKCF B 1 bright A_Light1
+        TNT1 A 2 A_Light1
+        Goto LightDone
+
+        PKCF A 1 bright A_Light1
+        PKCF B 1 bright A_Light1
+        TNT1 A 2
+        Goto LightDone
+
+      Spawn:
+        MGUN A -1
+        Stop
+    }
+}

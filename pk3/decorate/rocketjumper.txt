@@ -1,0 +1,218 @@
+actor RocketJumperBase: PlayerPawn
+{
+    Speed 1
+    Player.MaxHealth 250
+    Health 250
+    Radius 16
+    Height 56
+    Mass 100
+    PainChance 255
+
+    Player.ColorRange 112, 127
+    Player.CrouchSprite ""
+
+
+    -PICKUP
+    States
+    {
+      Spawn:
+        PRCK A 1
+        loop
+      See:
+        PRCK ABCD 4
+        Loop
+      Missile:
+        PRCK E 12
+        goto Spawn
+      Melee:
+        PRCK F 6 BRIGHT
+        goto Missile
+      Pain:
+        PRCK G 0 HealThing(250)
+        goto Spawn
+      Death:
+        PRCK H 10
+        PRCK I 10 A_PlayerScream
+        PRCK J 10 A_NoBlocking
+        PRCK KLM 10
+        PRCK N -1
+        Stop
+    }
+}
+
+actor NormalRocketJumper: RocketJumperBase
+{
+    Player.DisplayName "Rocket Jumper"
+
+    Player.StartItem "RJForever", 1
+}
+
+actor InstantRocketJumper: RocketJumperBase
+{
+    Player.DisplayName "I-Rocket Jumper"
+
+    Player.StartItem "RJForever", 2
+}
+
+actor OneSecondInvuln: PowerInvulnerable
+{
+    Powerup.Duration -1
+}
+
+actor RJForever: Inventory
+{
+    inventory.maxamount 1
+    +UNDROPPABLE
+}
+
+actor RJWeapon: Weapon
+{
+    +UNDROPPABLE
+}
+
+
+actor SpawnItem: CustomInventory
+{
+    Inventory.Icon "SPAWNITM"
+    Inventory.MaxAmount 1
+
+    +VISIBILITYPULSE
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PINS ABCD 6 bright
+        loop
+
+      Use:
+        TNT1 A 0 ACS_ExecuteAlways(698)
+        fail
+    }
+}
+
+actor SpawnSetter: CustomInventory
+{
+    Inventory.Icon "SETSPAWN"
+    Inventory.MaxAmount 1
+
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PINS ABCD 6 bright
+        loop
+
+      Use:
+        TNT1 A 0 ACS_ExecuteAlways(693, 0, 0)
+        fail
+    }
+}
+
+actor SpawnUnsetter: CustomInventory
+{
+    Inventory.Icon "USETSPWN"
+    Inventory.MaxAmount 1
+
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PINS ABCD 6 bright
+        loop
+
+      Use:
+        TNT1 A 0 ACS_ExecuteAlways(693, 0, 1)
+        fail
+    }
+}
+
+actor TogglePickups: CustomInventory
+{
+    Inventory.Icon "TOGGITEM"
+    Inventory.MaxAmount 1
+
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PRSR ABCD 6
+        loop
+
+      Use:
+        TNT1 A 0 A_JumpIfInventory("CanPickup", 1, "NoP")
+        goto YeP
+
+      NoP:
+        TNT1 A 0 A_ChangeFlag("PICKUP", 0)
+        TNT1 A 0 A_TakeInventory("CanPickup")
+        TNT1 A 0 A_Print("pickups disabled")
+        fail
+
+      YeP:
+        TNT1 A 0 A_ChangeFlag("PICKUP", 1)
+        TNT1 A 0 A_GiveInventory("CanPickup")
+        TNT1 A 0 A_Print("pickups enabled")
+        fail
+    }
+}
+
+actor CanPickup: Inventory
+{
+    inventory.maxamount 1
+    +UNDROPPABLE
+}
+
+actor ToggleSwitch: CustomInventory
+{
+    Inventory.Icon "SMRTSWTC"
+    Inventory.MaxAmount 1
+
+    +VISIBILITYPULSE
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PINS ABCD 6 bright
+        loop
+
+      Use:
+        TNT1 A 0 A_JumpIfInventory("NoSmartSwitch", 1, "YeP")
+        goto NoP
+
+      NoP:
+        TNT1 A 0 A_GiveInventory("NoSmartSwitch")
+        TNT1 A 0 A_Print("smart switch disabled")
+        fail
+
+      YeP:
+        TNT1 A 0 A_TakeInventory("NoSmartSwitch")
+        TNT1 A 0 A_Print("smart switch enabled")
+        fail
+    }
+}
+
+actor NoSmartSwitch: Inventory
+{
+    inventory.maxamount 1
+    +UNDROPPABLE
+}

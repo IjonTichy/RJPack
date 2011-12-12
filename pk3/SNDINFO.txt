@@ -1,0 +1,7 @@
+rocketjumper/rocketfire             sounds/rocket_fire.flac
+rocketjumper/rocketexplosion        sounds/rocket_splode.flac
+
+rjpack/superchaingun/fire           sounds/chaingun_fire.lmp
+
+$limit rocketjumper/rocketfire 0
+$limit rocketjumper/rocketexplosion 0

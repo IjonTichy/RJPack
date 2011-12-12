@@ -1,0 +1,53 @@
+pointlight RocketJumperRocket
+{
+    color 1.0 0.7 0.0
+    size 56
+}
+
+pointlight RocketJumperGrenade
+{
+    color 1.0 0.5 0.0
+    size 22
+}
+
+flickerlight RocketJumperExplosion1
+{
+    color 1.0 0.7 0.0
+    size 64
+    secondarySize 72
+    chance 0.3
+}
+
+flickerlight RocketJumperExplosion2
+{
+    color 0.5 0.1 0.0
+    size 80
+    secondarySize 88
+    chance 0.3
+}
+
+flickerlight RocketJumperExplosion3
+{
+    color 0.3 0.0 0.0
+    size 96
+    secondarySize 104
+    chance 0.3
+}
+
+object RocketJumperRocket
+{
+frame RJMSA { light RocketJumperRocket     }
+
+frame RJMSB { light RocketJumperExplosion1 }
+frame RJMSC { light RocketJumperExplosion2 }
+frame RJMSD { light RocketJumperExplosion3 }
+}
+
+object RocketJumperGrenade
+{
+frame RJGNA { light RocketJumperGrenade    }
+
+frame RJMSB { light RocketJumperExplosion1 }
+frame RJMSC { light RocketJumperExplosion2 }
+frame RJMSD { light RocketJumperExplosion3 }
+}

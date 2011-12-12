@@ -1,0 +1,72 @@
+actor "Super~Railgun": RJWeapon
+{
+    Weapon.SelectionOrder 10000
+    
+    Weapon.AmmoType "SuperRailCounter"
+    
+    Weapon.SlotNumber 6
+
+    Inventory.Pickupmessage "You picked up a super railgun!"
+    Obituary "%k punched a gaping hole into %o."
+
+    States
+    {
+      Select:
+        RLGG A 1 A_Raise
+        Loop
+
+      Deselect:
+        RLGG A 1 A_Lower
+        Loop
+
+      Ready:
+        RLGG A 1 A_WeaponReady
+        loop
+
+      Fire:
+        RLGG E 0  A_GunFlash
+        RLGG E 0  A_FireBullets(0, 0, 1, 0, "RJRocketPuff")
+        RLGG E 0  A_RailAttack(50*ACS_ExecuteWithResult(694, 0, 0) )
+        RLGG E 12 A_TakeInventory("SuperRailCounter")
+        RLGG FGHIJKL 6
+        goto Ready
+
+      Flash:
+        TNT1 A 5 bright A_Light1
+        TNT1 A 5 bright A_Light2
+        TNT1 A 0 bright A_Light0
+        Goto LightDone
+
+      Spawn:
+        RAIL A -1
+        Stop
+    }
+}
+
+actor SuperRailCounter: Ammo
+{
+    Inventory.Amount 1
+    Inventory.MaxAmount 400
+    Ammo.BackpackAmount 0
+    Ammo.BackpackMaxAmount 400
+
+    Inventory.Icon "CELLA0"
+}
+
+actor RJRocketPuff: BulletPuff
+{
+    VSpeed 0
+    RenderStyle Add
+    Alpha 1
+    +PUFFONACTORS
+    +PUFFGETSOWNER
+
+    States
+    {
+      Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_Explode(160, 160, 0)
+        RJMS BBBBCCCDD 2 bright
+        stop
+    }
+}
