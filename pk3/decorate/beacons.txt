@@ -7,15 +7,18 @@ actor BaseBeaconBeam
     Scale 0.75
     RenderStyle Add
     Alpha 0
+
+    Radius 0
+    Height 0
     
     VSpeed 5
 
     States
     {
       BaseSpawn:
-        "----" AAAAAAAA 1 A_FadeIn(0.0625)
-        "----" A 70
-        "----" A 1 A_FadeOut(0.0125)
+        "----" AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 bright A_FadeIn(0.015625)
+        "----" A 70 bright
+        "----" A 1 bright A_FadeOut(0.0125)
         wait
     }
 }
@@ -33,7 +36,7 @@ actor RedBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("RedBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("RedBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -56,7 +59,7 @@ actor OrangeBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("OrangeBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("OrangeBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -79,7 +82,7 @@ actor YellowBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("YellowBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("YellowBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -102,7 +105,7 @@ actor GreenBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("GreenBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("GreenBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -125,7 +128,7 @@ actor TurquoiseBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("TurquoiseBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("TurquoiseBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -148,7 +151,7 @@ actor BlueBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("BlueBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("BlueBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -171,7 +174,7 @@ actor MagentaBeacon: BaseBeacon
     {
       Spawn:
         BECN A 0
-        BECN A 1 A_SpawnItemEx("MagentaBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        BECN A 1 A_SpawnItemEx("MagentaBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
         wait
     }
 }
@@ -183,5 +186,78 @@ actor MagentaBeaconBeam: BaseBeaconBeam
       Spawn:
         PBCN A 0
         goto BaseSpawn
+    }
+}
+
+
+
+actor WhiteBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("WhiteBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor WhiteBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        WBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor BlackBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("BlackBeaconBeam", random(0,7),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor BlackBeaconBeam: BaseBeaconBeam
+{
+    RenderStyle Translucent
+    States
+    {
+      Spawn:
+        BKBC N 0
+        goto BaseSpawn
+        
+      BaseSpawn:
+        "----" AAAAAAAAAAAAAAAAAAAAAAA 1 bright A_FadeIn(0.015625)
+        "----" A 70 bright
+        "----" A 1 bright A_FadeOut(0.01)
+        wait
+    }
+}
+
+actor DecorativeExplosion
+{
+    +CLIENTSIDEONLY
+    +NOINTERACTION
+
+    RenderStyle Add
+    
+    Radius 0
+    Height 0
+
+    States
+    {
+      Spawn:
+        MISL B 0 bright
+        MISL B 0 bright A_PlaySound("rocketjumper/rocketexplosion")
+        MISL BCD 8 bright
+        stop
     }
 }

@@ -22,8 +22,8 @@
 
 
 
-#define BEACON_COUNT            7
-#define MAX_BEACONS             2
+#define BEACON_COUNT            9
+#define MAX_BEACONS             3
 
 
 int BEACONNAMES[BEACON_COUNT][2] = {
@@ -34,4 +34,6 @@ int BEACONNAMES[BEACON_COUNT][2] = {
                                     {"TurquoiseBeacon", "Turquoise"},
                                     {"BlueBeacon",      "Blue"},
                                     {"MagentaBeacon",   "Magenta"},
+                                    {"WhiteBeacon",     "White"},
+                                    {"BlackBeacon",     "Black"},
                                    };

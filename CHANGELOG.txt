@@ -39,3 +39,10 @@ v4.2:
 + Beacons!
 * Added +NOAUTOAIM to the Super Railgun
 * Re-added the Marine (as the last choice)
+
+v4.2.1:
++ Beacon Remover
+* Beacons disappear on disconnect
+* Beacon flame fades in fully higher up
+* No more "Unset spawn" on spectate
+

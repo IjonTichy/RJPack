@@ -90,12 +90,14 @@ script RJPACK_SPAWN_COMMON (void)
                 GiveInventory("SpawnSetter", 1);
             }
             
+            TakeInventory("RemoveBeacons", 1);
             TakeInventory("ToggleSwitch", 1);
             TakeInventory("TogglePickups", 1);
             TakeInventory("SpawnUnsetter", 1);
             GiveInventory("SpawnUnsetter", 1);
             GiveInventory("TogglePickups", 1);
             GiveInventory("ToggleSwitch", 1);
+            GiveInventory("RemoveBeacons", 1);
         }
         else
         {
@@ -104,6 +106,7 @@ script RJPACK_SPAWN_COMMON (void)
             GiveInventory("SpawnItem", 1);
             GiveInventory("SpawnSetter", 1);
             GiveInventory("SpawnUnsetter", 1);
+            GiveInventory("RemoveBeacons", 1);
         }
 
         if (i % 3 == 0)
@@ -131,7 +134,8 @@ script RJPACK_DEATH death
 script RJPACK_DISCONNECT (int pln) disconnect
 {
     joinScriptRunning[pln] = 0;
-    ACS_ExecuteAlways(RJPACK_SETSPAWN, 0, 1,0,0);
+    ACS_ExecuteAlways(RJPACK_SETSPAWN, 0, 3,0,0);
+    ACS_ExecuteAlways(RJPACK_MAKEBEACON, 0, 3,0,0);
 }
 
 
@@ -176,6 +180,15 @@ script RJPACK_SETSPAWN (int whichMode)
             startPoints[pln][2] = GetActorZ(0);
             startPoints[pln][3] = GetActorAngle(0);
             startPoints[pln][4] = GetActorPitch(0);
+            break;
+
+        case 3:
+            spawnPoints[pln][0] = 0;
+            spawnPoints[pln][1] = 0;
+            spawnPoints[pln][2] = 0;
+            spawnPoints[pln][3] = 0;
+            spawnPoints[pln][4] = 0;
+            spawnPoints[pln][5] = 0;
             break;
     }
 }
@@ -224,7 +237,8 @@ script RJPACK_GOTOSPAWN (int spawned)
 
 script RJPACK_MAKEBEACON (int choice, int beaconType)
 {
-    int i; int j;
+    int i; int j; int tid;
+    int pln = PlayerNumber();
     
     switch (choice)
     {
@@ -238,7 +252,6 @@ script RJPACK_MAKEBEACON (int choice, int beaconType)
         int cont;
         
         int newTID = unusedTID(5000, 10000);
-        int pln = PlayerNumber();
 
         int x = GetActorX(0);
         int y = GetActorY(0);
@@ -256,13 +269,25 @@ script RJPACK_MAKEBEACON (int choice, int beaconType)
             }
         }
 
+        nx = x + (FixedMul(cos(angle), cos(pitch)) * 80);
+        ny = y + (FixedMul(sin(angle), cos(pitch)) * 80);
+        nz = max(z + (-sin(pitch) * 80), GetActorFloorZ(0));
+        
+        Spawn(BEACONNAMES[beaconType][0], nx, ny, nz, newTID, 0);
+
+        if (ThingCount(0, newTID) == 0)
+        {
+            terminate;
+        }
+
         if (cont == 0)
         {
+            SpawnSpot("DecorativeExplosion", beaconTIDs[pln][beaconType][0]);
             Thing_Remove(beaconTIDs[pln][beaconType][0]);
 
-            for (i = MAX_BEACONS-1; i > 0; i--)
+            for (i = 0; i < MAX_BEACONS; i++)
             {
-                beaconTIDs[pln][beaconType][i-1] = beaconTIDs[pln][beaconType][i];
+                beaconTIDs[pln][beaconType][i] = beaconTIDs[pln][beaconType][i+1];
             }
              
             beaconTIDs[pln][beaconType][MAX_BEACONS-1] = newTID;
@@ -271,12 +296,6 @@ script RJPACK_MAKEBEACON (int choice, int beaconType)
         {
             beaconTIDs[pln][beaconType][i] = newTID;
         }
-
-        nx = x + (FixedMul(cos(angle), cos(pitch)) * 80);
-        ny = y + (FixedMul(sin(angle), cos(pitch)) * 80);
-        nz = max(z + (-sin(pitch) * 80), GetActorFloorZ(0));
-        
-        Spawn(BEACONNAMES[beaconType][0], nx, ny, nz, newTID, 0);
         break;
 
     case 1:
@@ -292,23 +311,20 @@ script RJPACK_MAKEBEACON (int choice, int beaconType)
 
         Print(s:"Switched to beacon color ", s:BEACONNAMES[j][1]);
         break;
-    }
-}
 
-script RJPACK_REMOVEBEACONS (int pln)
-{
-    int i; int j; int tid;
-    
-    for (i = 0; i < BEACON_COUNT; i++)
-    {
-        for (j = 0; j < MAX_BEACONS; j++)
+    case 3:
+        for (i = 0; i < BEACON_COUNT; i++)
         {
-            tid = beaconTIDs[pln][i][j];
-
-            if (tid != 0)
+            for (j = 0; j < MAX_BEACONS; j++)
             {
-                Thing_Remove(tid);
-                beaconTIDs[pln][i][j] = 0;
+                tid = beaconTIDs[pln][i][j];
+
+                if (tid != 0)
+                {
+                    SpawnSpot("DecorativeExplosion", tid);
+                    Thing_Remove(tid);
+                    beaconTIDs[pln][i][j] = 0;
+                }
             }
         }
     }

@@ -136,6 +136,29 @@ actor ToggleSwitch: CustomInventory
     }
 }
 
+actor RemoveBeacons: CustomInventory
+{
+    Inventory.Icon "RMBEACON"
+    Inventory.MaxAmount 1
+
+    +VISIBILITYPULSE
+    +FLOATBOB
+    
+    +UNDROPPABLE
+    +INVBAR
+
+    States
+    {
+      Spawn:
+        PINS ABCD 6 bright
+        loop
+
+      Use:
+        TNT1 A 0 ACS_ExecuteAlways(700, 0, 3,0,0)
+        fail
+    }
+}
+
 actor NoSmartSwitch: Inventory
 {
     inventory.maxamount 1

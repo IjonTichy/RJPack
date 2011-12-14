@@ -17,6 +17,11 @@ Here are the main tools of the rocket jumping trade:
     Fires rockets/grenades instantly, but otherwise same thing. Use
     discouraged.
 
+* Beacon Layer:
+    Lays colorful beacons! You can only lay two per color, but you have all
+    the colors of the rainbow. Completely useless technically, but what's
+    wrong with colors? :(
+
 * Spawn Setter (the invuln items):
     Allows you to set your spawn point, so you don't have to restart the map
     whenever you die. That shouldn't be very often, but who knows? The
