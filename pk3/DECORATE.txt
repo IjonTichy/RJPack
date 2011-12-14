@@ -1,5 +1,6 @@
 #include "decorate/rocketjumper.txt"
+#include "decorate/rjitems.txt"
 #include "decorate/rocketlaunchers.txt"
 #include "decorate/superchaingun.txt"
 #include "decorate/superrailgun.txt"
-#include "decorate/spawnsetter.txt"
+#include "decorate/beacons.txt"

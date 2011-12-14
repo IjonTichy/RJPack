@@ -1,0 +1,187 @@
+actor BaseBeaconBeam
+{
+    +CLIENTSIDEONLY
+    +NOINTERACTION
+    +FORCEXYBILLBOARD
+
+    Scale 0.75
+    RenderStyle Add
+    Alpha 0
+    
+    VSpeed 5
+
+    States
+    {
+      BaseSpawn:
+        "----" AAAAAAAA 1 A_FadeIn(0.0625)
+        "----" A 70
+        "----" A 1 A_FadeOut(0.0125)
+        wait
+    }
+}
+
+actor BaseBeacon
+{
+    +CLIENTSIDEONLY
+    -SOLID
+    -SHOOTABLE
+}
+
+actor RedBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("RedBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor RedBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        RBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor OrangeBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("OrangeBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor OrangeBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        OBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor YellowBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("YellowBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor YellowBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        YBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor GreenBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("GreenBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor GreenBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        GBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor TurquoiseBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("TurquoiseBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor TurquoiseBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        TBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor BlueBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("BlueBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor BlueBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        BBCN A 0
+        goto BaseSpawn
+    }
+}
+
+
+
+actor MagentaBeacon: BaseBeacon
+{
+    States
+    {
+      Spawn:
+        BECN A 0
+        BECN A 1 A_SpawnItemEx("MagentaBeaconBeam", random(0,4),0,16, 0,0,random(490,510)/100.0, random(0, 359))
+        wait
+    }
+}
+
+actor MagentaBeaconBeam: BaseBeaconBeam
+{
+    States
+    {
+      Spawn:
+        PBCN A 0
+        goto BaseSpawn
+    }
+}

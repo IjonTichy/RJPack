@@ -34,3 +34,8 @@ v4.1:
 * Smart toggling between the Spawn Item and Spawn Setter - when you leave
   ground, you switch to Spawn Item, and when you land, you switch to Spawn
   Setter - this can be toggled by the Smart Switch Toggler
+
+v4.2:
++ Beacons!
+* Added +NOAUTOAIM to the Super Railgun
+* Re-added the Marine (as the last choice)
