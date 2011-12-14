@@ -2,9 +2,11 @@
 #library "rjpack"
 
 #include "rjConstants.h"
+#include "rjFunctions.c"
 
 int startPoints[32][5];
 int spawnPoints[32][6];
+int beaconTIDs[32][BEACON_COUNT][MAX_BEACONS];
 int joinScriptRunning[32];
 
 script RJPACK_OPEN open
@@ -67,6 +69,7 @@ script RJPACK_SPAWN_COMMON (void)
         
         GiveInventory("Super~Chaingun", 1);
         GiveInventory("Super~Railgun", 1);
+        GiveInventory("Beacon~Layer", 1);
 
         oldGround = onGround;
         onGround = (GetActorZ(0) - GetActorFloorZ(0) == 0);
@@ -216,5 +219,97 @@ script RJPACK_GOTOSPAWN (int spawned)
         SetActorAngle(0, startPoints[pln][3]);
         SetActorPitch(0, startPoints[pln][4]);
         SetActorPosition(0, startPoints[pln][0], startPoints[pln][1], startPoints[pln][2], 1);
+    }
+}
+
+script RJPACK_MAKEBEACON (int choice, int beaconType)
+{
+    int i; int j;
+    
+    switch (choice)
+    {
+    case 0:
+        if (beaconType < 0 || beaconType >= BEACON_COUNT)
+        {
+            terminate;
+        }
+        
+        int nx; int ny; int nz;
+        int cont;
+        
+        int newTID = unusedTID(5000, 10000);
+        int pln = PlayerNumber();
+
+        int x = GetActorX(0);
+        int y = GetActorY(0);
+        int z = GetActorZ(0);
+        int angle = GetActorAngle(0);
+        int pitch = GetActorPitch(0);
+
+        
+        for (i = 0; i < MAX_BEACONS; i++)
+        {
+            if (beaconTIDs[pln][beaconType][i] == 0)
+            {
+                cont = 1;
+                break;
+            }
+        }
+
+        if (cont == 0)
+        {
+            Thing_Remove(beaconTIDs[pln][beaconType][0]);
+
+            for (i = MAX_BEACONS-1; i > 0; i--)
+            {
+                beaconTIDs[pln][beaconType][i-1] = beaconTIDs[pln][beaconType][i];
+            }
+             
+            beaconTIDs[pln][beaconType][MAX_BEACONS-1] = newTID;
+        }
+        else
+        {
+            beaconTIDs[pln][beaconType][i] = newTID;
+        }
+
+        nx = x + (FixedMul(cos(angle), cos(pitch)) * 80);
+        ny = y + (FixedMul(sin(angle), cos(pitch)) * 80);
+        nz = max(z + (-sin(pitch) * 80), GetActorFloorZ(0));
+        
+        Spawn(BEACONNAMES[beaconType][0], nx, ny, nz, newTID, 0);
+        break;
+
+    case 1:
+        SetResultValue(CheckInventory("BeaconCounter"));
+        break;
+
+    case 2:
+        i = CheckInventory("BeaconCounter");
+        j = modulo(i + beaconType, BEACON_COUNT);
+
+        TakeInventory("BeaconCounter", i);
+        GiveInventory("BeaconCounter", j);
+
+        Print(s:"Switched to beacon color ", s:BEACONNAMES[j][1]);
+        break;
+    }
+}
+
+script RJPACK_REMOVEBEACONS (int pln)
+{
+    int i; int j; int tid;
+    
+    for (i = 0; i < BEACON_COUNT; i++)
+    {
+        for (j = 0; j < MAX_BEACONS; j++)
+        {
+            tid = beaconTIDs[pln][i][j];
+
+            if (tid != 0)
+            {
+                Thing_Remove(tid);
+                beaconTIDs[pln][i][j] = 0;
+            }
+        }
     }
 }

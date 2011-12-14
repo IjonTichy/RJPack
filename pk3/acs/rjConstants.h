@@ -17,3 +17,21 @@
 #define RJPACK_PROJ_CHECKAMMO   RJPACK_BASE + 5
 #define RJPACK_GOTOSPAWN        RJPACK_BASE + 6
 #define RJPACK_TOGGLEPICKUP     RJPACK_BASE + 7
+#define RJPACK_MAKEBEACON       RJPACK_BASE + 8
+#define RJPACK_REMOVEBEACONS    RJPACK_BASE + 9
+
+
+
+#define BEACON_COUNT            7
+#define MAX_BEACONS             2
+
+
+int BEACONNAMES[BEACON_COUNT][2] = {
+                                    {"RedBeacon",       "Red"}, 
+                                    {"OrangeBeacon",    "Orange"},
+                                    {"YellowBeacon",    "Yellow"},
+                                    {"GreenBeacon",     "Green"},
+                                    {"TurquoiseBeacon", "Turquoise"},
+                                    {"BlueBeacon",      "Blue"},
+                                    {"MagentaBeacon",   "Magenta"},
+                                   };

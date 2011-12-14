@@ -4,3 +4,4 @@
 #include "decorate/superchaingun.txt"
 #include "decorate/superrailgun.txt"
 #include "decorate/beacons.txt"
+#include "decorate/beaconlayer.txt"
